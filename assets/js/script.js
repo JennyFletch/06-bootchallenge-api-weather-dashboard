@@ -21,17 +21,65 @@ var openweatherKey = 'bdb4743787713bf16cafd1c2dec3eb6a';
 var submitBtnEl = document.getElementById("btn-submit");
 var cityInputEl = document.getElementById("city-input");
 var cityName;
+var cityShortcuts = []; // array to hold city names saved to localStorage
 
+
+function getApi(requestUrl) {
+
+    fetch(requestUrl)
+      .then(function (response) {
+        // Check the console first to see the response.status
+        console.log(response.status);
+        responseText.textContent = response.status;
+        // Then write the conditional based on that response.status value
+        // Make sure to display the response on the page
+  
+        if(response.status === 404) {
+          console.log("404 - not found!");
+        } 
+  
+        if(response.status === 200) {
+          console.log("200 is good.");
+        }
+  
+      })
+      .then(function (data) {
+        console.log(data);
+      });
+  }
+
+  function addNewShortcut(cityName) {
+    // build shortcut and display it on page
+    saveToLocalStorage(cityName);
+  }
+  
+  function getSavedShortcuts() { }
+
+  function saveToLocalStorage(cityName) {
+    // Add city to cityShortcuts array and save all to localStorage 
+     cityShortcuts.push(cityName);
+     window.localStorage.setItem("cityShortcuts", JSON.stringify(cityShortcuts))
+  }
+
+  function forceResubmit() {
+    // prompt user to resubmit city name
+    alert("Please enter a city.");
+    location.reload();
+  }
 
 submitBtnEl.addEventListener("click", function(e) {
     e.preventDefault();
 
     if (cityInputEl.value) {
         cityName = cityInputEl.value;
-        
+        // build a shortcut button and display it on the page
+        // make a call to get current weather
+        // make a call to get 5-day forecast
+        // parse data that comes back and display it
+        saveToLocalStorage(cityName); // save city name to localStorage for future use
     } else {
-        alert("Please enter a city.");
-        location.reload();
+        forceResubmit();
     }
-    
 });
+
+getSavedShortcuts(); // grab shortcuts from localStorage and display below form
