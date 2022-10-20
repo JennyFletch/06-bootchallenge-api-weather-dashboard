@@ -24,7 +24,7 @@ var openweatherKey = 'bdb4743787713bf16cafd1c2dec3eb6a';
 
 
 // Get today's date from day.js
-var dateMonth = dayjs().month();
+var dateMonth = dayjs().month() + 1;
 var dateDay = dayjs().date();
 var dateYear = dayjs().year();
 var dateToday = dateMonth + "/" + dateDay + "/" + dateYear;
@@ -175,7 +175,7 @@ function forceResubmit() {
 
 function clearOldData() {
     // Clear out any previous forecast data being displayed
-    
+
     while (forecastTodayEl.firstChild) {
         forecastTodayEl.removeChild(forecastTodayEl.firstChild);
     }
