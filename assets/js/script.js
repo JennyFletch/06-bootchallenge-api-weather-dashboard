@@ -71,14 +71,13 @@ function getTheWeather(cityName) {
         })
         .then(function (owWeather) {
             // Build display of today's weather
-            console.log(owWeather);
-
             var cityDateAndIcon = document.createElement('h3');
             cityDateAndIcon.textContent = cityName + " (" + dateToday + ")";
             var weatherIcon = document.createElement('img');
             var iconUrl = "https://openweathermap.org/img/wn/" + owWeather.weather[0].icon + "@2x.png";
             weatherIcon.setAttribute("src", iconUrl);
             cityDateAndIcon.appendChild(weatherIcon);
+            forecastTodayEl.setAttribute("style", "visibility:visible");
             forecastTodayEl.appendChild(cityDateAndIcon);
             var dataTemp = document.createElement("p");
             dataTemp.textContent = "Temp: " + owWeather.main.temp + "\u00B0F";
@@ -103,15 +102,14 @@ function getTheWeather(cityName) {
         })
         .then(function (owForecast) {
             // Build display of 5-day forecast
-            console.log(owForecast);
             var forecastTitle = document.createElement("h4");
             forecastTitle.textContent = "5-Day Forecast:";
             forecastFivedayEl.appendChild(forecastTitle);
             var forecastList = document.createElement("ul");
             forecastFivedayEl.appendChild(forecastList);
+            
             for (var i=0; i<5; i++) {
                 var listItem = document.createElement("li");
-                //listItem.textContent = "List Item #" + i;
                 forecastList.appendChild(listItem);
                 var forecastTitle = document.createElement("h5");
                 var forecastDate = dateDay + i + 1;
@@ -122,7 +120,6 @@ function getTheWeather(cityName) {
                 var iconUrl = "https://openweathermap.org/img/wn/" + owForecast.list[i].weather[0].icon + "@2x.png";
                 forecastIcon.setAttribute("src", iconUrl);
                 listItem.appendChild(forecastIcon);
-                // temp, wind, humidity
                 var forecastTemp = document.createElement("p");
                 forecastTemp.textContent = "Temp: " + owForecast.list[i].temp.day + "\u00B0F";
                 listItem.appendChild(forecastTemp);
@@ -140,7 +137,6 @@ function getTheWeather(cityName) {
 
 function makeCityButton(cityName) {
     var cityBtn = document.createElement('li');
-    // cityBtn.setAttribute('data-location', cityName);
     cityBtn.textContent = cityName;
     cityShortcutsEl.appendChild(cityBtn);
 }
@@ -177,6 +173,18 @@ function forceResubmit() {
     location.reload();
 }
 
+function clearOldData() {
+    // Clear out any previous forecast data being displayed
+    
+    while (forecastTodayEl.firstChild) {
+        forecastTodayEl.removeChild(forecastTodayEl.firstChild);
+    }
+
+    while (forecastFivedayEl.firstChild) {
+        forecastFivedayEl.removeChild(forecastFivedayEl.firstChild);
+    }  
+}
+
 submitBtnEl.addEventListener("click", function(e) {
     e.preventDefault();
 
@@ -184,6 +192,7 @@ submitBtnEl.addEventListener("click", function(e) {
         // Get weather for submitted city
         cityName = cityInputEl.value;
         addNewShortcut(cityName); // build a shortcut button and display it on the page
+        clearOldData();
         getTheWeather(cityName); 
     } else {
         forceResubmit();
@@ -193,6 +202,7 @@ submitBtnEl.addEventListener("click", function(e) {
 cityShortcutsEl.addEventListener("click", function(e) {
    // Get weather info for shortcut city
     var shortcutCity = e.target.textContent;
+    clearOldData();
     getTheWeather(shortcutCity); 
 });
 

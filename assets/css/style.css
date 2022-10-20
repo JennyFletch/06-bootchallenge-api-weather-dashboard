@@ -14,7 +14,7 @@ body {
 
 header h1 { 
     margin: 0;
-    padding: 25px 0 25px 25%;
+    padding: 25px 0;
     background: linear-gradient(to left, #465ab8, #261360); 
     color: #fff;
     font-weight: bold;
@@ -22,12 +22,26 @@ header h1 {
 }
 
 h3 { 
-    font-family: Arial, Helvetica, sans-serif;
     font-weight: bold;
     font-size: 1.75rem;
 }
 
+h4, h5 {
+    font-weight: bold;
+    font-size: 1.5rem;
+    margin: 15px 0 10px;
+}
+
+h5 { 
+    margin: 0; 
+    padding: 0;
+}
+
 /*-- LEFT COLUMN STYLES --*/
+
+aside h3 {
+    margin: 10px 0;
+}
 
 aside input[type="text"] { 
     width: 100%; 
@@ -78,6 +92,7 @@ button, input, li {
 #forecast-today {
     border: 1px solid  var(--borders-main);
     padding: 20px; 
+    visibility: hidden;
 }
 
 #forecast-today h3 {
@@ -85,9 +100,80 @@ button, input, li {
     flex-direction: row;
     line-height: 50px;
     text-transform: capitalize;
+    margin: 0;
 }
 
 #forecast-today img {
     height: 50px;
     width: auto;
+}
+
+#forecast-fiveday ul {
+    margin: 0;
+    padding: 0;
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+#forecast-fiveday ul li {
+    border: 1px solid  var(--borders-main);
+    background-color: #323d4f;
+    padding: 20px;
+    color: #fff;
+    font-weight: bold;
+    border-radius: 0px;
+    flex-grow: 2;
+}
+
+#forecast-fiveday ul li p {
+    margin-top: 0; 
+}
+
+#forecast-fiveday ul li img {
+    height: 50px;
+    width: auto;
+    margin: 10px 0;
+}
+
+/*-- DESKTOP LAYOUT --*/
+
+@media(min-width:768px) {
+
+   .container {
+        display: flex;
+        flex-direction: row;
+        gap: 20px;
+    }
+
+    .container aside {
+        flex-basis: 40%;
+    }
+
+    .container main  {
+        flex-grow: 1;
+    }
+}
+
+@media(min-width:1200px) {
+
+    header h1 { 
+        padding-left: 300px;
+    }
+
+    .container aside { 
+        flex-basis: 300px;
+        flex-grow: 0;
+    }
+
+    .container main {
+        flex-basis: 60%;
+        flex-grow: 1;
+    }
+
+    #forecast-fiveday ul {
+        flex-direction: row;
+    }
+
 }
