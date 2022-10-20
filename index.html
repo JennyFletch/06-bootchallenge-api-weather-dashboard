@@ -15,20 +15,25 @@
         <h1>Weather Dashboard</h1>
     </header>
 
-    <aside>
-        <h3>Search for a City:</h3>
-        <form>
-            <input type="text" id="city-input" placeholder="San Diego" />
-            <button id="btn-submit">SEARCH</button>
-        </form>
-        <ul id="city-shortcuts"></ul>
-    </aside>
+    <div class="container">
 
-    <main>
-        <section id="forecast-today"></section>
-        <section id="forecast-fiveday"></section>
-    </main>
+        <aside>
+            <h3>Search for a City:</h3>
+            <form>
+                <input type="text" id="city-input" placeholder="San Diego" />
+                <button id="btn-submit">Search</button>
+            </form>
+            <ul id="city-shortcuts"></ul>
+        </aside>
 
+        <main>
+            <section id="forecast-today"></section>
+            <section id="forecast-fiveday"></section>
+        </main>
+
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/dayjs@1/dayjs.min.js"></script>
     <script src="./assets/js/script.js"></script>
 </body>
 </html>
